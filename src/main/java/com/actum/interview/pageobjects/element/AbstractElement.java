@@ -13,4 +13,12 @@ public class AbstractElement {
         element.click();
     }
 
+    public String text() {
+        return element.getText();
+    }
+
+    public boolean isDisplayed() {
+        return element.isDisplayed();
+    }
+
 }

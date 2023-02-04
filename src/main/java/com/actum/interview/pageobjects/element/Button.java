@@ -8,8 +8,4 @@ public class Button extends AbstractElement{
         super(element);
     }
 
-    public String text() {
-        return element.getText();
-    }
-
 }

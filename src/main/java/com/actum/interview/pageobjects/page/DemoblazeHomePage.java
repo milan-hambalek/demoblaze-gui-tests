@@ -1,8 +1,8 @@
 package com.actum.interview.pageobjects.page;
 
+import com.actum.interview.pageobjects.panel.LoginFormPanel;
 import com.actum.interview.pageobjects.panel.MenuPanel;
 import com.actum.interview.pageobjects.panel.SignupFormPanel;
-import com.actum.interview.pageobjects.panel.LoginFormPanel;
 
 public class DemoblazeHomePage extends AbstractPage {
 
