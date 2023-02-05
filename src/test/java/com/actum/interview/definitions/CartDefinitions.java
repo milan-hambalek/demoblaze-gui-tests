@@ -8,6 +8,7 @@ import com.actum.interview.pageobjects.page.ProductDetailPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -16,13 +17,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class CartDefinitions extends AbstractDefinitions {
 
     private ProductDetailPage productDetailPage;
     private CartPage cartPage;
     private List<Product> shuffledProducts;
+    private List<CartItem> remainingCartItems;
 
     @Before("@Cart")
     public void setUp() {
@@ -59,7 +61,7 @@ public class CartDefinitions extends AbstractDefinitions {
         productDetailPage = homePage.gotoProductDetail(product);
     }
 
-    @And("Opens up cart page")
+    @And("Goes to cart page")
     public void gotoCart() {
         cartPage = productDetailPage.gotoCart();
     }
@@ -82,6 +84,49 @@ public class CartDefinitions extends AbstractDefinitions {
         int totalPrice = Integer.parseInt(cartPage.cartPanel().totalPriceElement().text());
 
         assertEquals(totalPrice, expectedPrice);
+    }
+
+    @Given("User adds {int} randomly chosen products into cart")
+    public void fillUpCart(final int n) {
+        shuffledProducts = homePage.productsPanel().parseProducts();
+        Collections.shuffle(shuffledProducts);
+
+        for (int i = 0; i < n; i++) {
+            Product product = shuffledProducts.get(i);
+            productDetailPage = homePage.gotoProductDetail(product);
+            productDetailPage.addToCart();
+            homePage = productDetailPage.gotoHomepage();
+        }
+
+        remainingCartItems = shuffledProducts.subList(0, n).stream().map(p ->
+                new CartItem(p.getName(), p.getPrice())
+        ).collect(Collectors.toList());
+        Collections.shuffle(remainingCartItems);
+    }
+
+    @When("User removes {int}. item from cart")
+    public void removeItem(int i) {
+        CartItem item = remainingCartItems.get(0);
+        remainingCartItems.remove(item);
+        cartPage.cartPanel().deleteLink(item.getName()).click();
+        cartPage.cartPanel().waitForReload();
+    }
+
+    @Then("Item should disappear from cart list")
+    public void checkItems() {
+        assertEquals(cartPage.cartPanel().parseProducts(), Set.copyOf(remainingCartItems));
+    }
+
+    @And("Total price should update accordingly")
+    public void checkTotalPriceAfterItemRemoval() {
+        int displayedTotalPrice = Integer.parseInt(cartPage.cartPanel().totalPriceElement().text());
+        int expectedTotalPrice = remainingCartItems.stream().map(CartItem::getPrice).reduce(0, Integer::sum);
+        assertEquals(displayedTotalPrice, expectedTotalPrice);
+    }
+
+    @And("Total price should display no value")
+    public void checkTotalPriceAfterItemRemovalOfLastItem() {
+        assertEquals(cartPage.cartPanel().totalPriceElement().text(), "");
     }
 
     @After("@Cart")
