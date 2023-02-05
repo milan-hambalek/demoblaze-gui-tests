@@ -2,6 +2,7 @@ package com.actum.interview.pageobjects.page;
 
 import com.actum.interview.pageobjects.panel.LoginFormPanel;
 import com.actum.interview.pageobjects.panel.MenuPanel;
+import com.actum.interview.pageobjects.panel.ProductPanel;
 import com.actum.interview.pageobjects.panel.SignupFormPanel;
 
 public class DemoblazeHomePage extends AbstractPage {
@@ -28,6 +29,10 @@ public class DemoblazeHomePage extends AbstractPage {
 
     public LoginFormPanel loginForm() {
         return new LoginFormPanel(driver);
+    }
+
+    public ProductPanel productPanel() {
+        return new ProductPanel(driver);
     }
 
 }

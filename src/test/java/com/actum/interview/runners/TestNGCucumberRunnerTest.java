@@ -8,7 +8,8 @@ import io.cucumber.testng.CucumberOptions;
         tags = "",
         features = {
                 "src/test/resources/features/signup.feature",
-                "src/test/resources/features/login.feature"
+                "src/test/resources/features/login.feature",
+                "src/test/resources/features/categories.feature"
         },
         glue = {
                 "com.actum.interview.definitions"
