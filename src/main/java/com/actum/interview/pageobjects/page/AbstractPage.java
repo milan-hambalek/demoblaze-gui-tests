@@ -34,7 +34,7 @@ abstract class AbstractPage implements Page {
 
     public DemoblazeHomePage gotoHomepage() {
         menuPanel().homeLink().click();
-        return new DemoblazeHomePage(driver);
+        return DemoblazeHomePage.getInstance();
     }
 
     public CartPage gotoCart() {
