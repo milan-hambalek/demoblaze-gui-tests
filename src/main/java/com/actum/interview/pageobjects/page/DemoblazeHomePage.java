@@ -2,7 +2,7 @@ package com.actum.interview.pageobjects.page;
 
 import com.actum.interview.pageobjects.data.Product;
 import com.actum.interview.pageobjects.panel.ProductsPanel;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 
@@ -20,7 +20,7 @@ public class DemoblazeHomePage extends AbstractPage {
     }
 
     private DemoblazeHomePage() {
-        super(new ChromeDriver());
+        super(new FirefoxDriver());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT));
         driver.manage().window().maximize();
         driver.get("https://www.demoblaze.com");
