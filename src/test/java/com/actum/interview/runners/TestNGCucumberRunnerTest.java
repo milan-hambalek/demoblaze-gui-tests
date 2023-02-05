@@ -15,7 +15,8 @@ import io.cucumber.testng.CucumberOptions;
         glue = {
                 "com.actum.interview.definitions"
         },
-        plugin = {})
+        plugin = {"html:target/cucumber/report.html", "json:target/cucumber/report.json"})
+
 public class TestNGCucumberRunnerTest extends AbstractTestNGCucumberTests {
 
 }
