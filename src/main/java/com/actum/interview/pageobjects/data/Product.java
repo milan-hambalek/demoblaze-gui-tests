@@ -24,24 +24,24 @@ public class Product {
         return Arrays.asList(mapper.readValue(Product.class.getResourceAsStream("/products/monitors.json"), Product[].class));
     }
 
-    private final String model;
+    private final String name;
     private final int price;
     private final String description;
 
-    public Product(String model, int price, String description) {
-        this.model = model;
+    public Product(String name, int price, String description) {
+        this.name = name;
         this.price = price;
         this.description = description;
     }
 
     public Product() {
-        this.model = "";
+        this.name = "";
         this.price = 0;
         this.description = "";
     }
 
-    public String getModel() {
-        return model;
+    public String getName() {
+        return name;
     }
 
     public int getPrice() {
@@ -55,7 +55,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "model='" + model + '\'' +
+                "name='" + name + '\'' +
                 ", price=" + price +
                 '}';
     }
@@ -65,11 +65,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return price == product.price && model.equals(product.model) && description.equals(product.description);
+        return price == product.price && name.equals(product.name) && description.equals(product.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(model, price, description);
+        return Objects.hash(name, price, description);
     }
 }

@@ -1,13 +1,18 @@
 package com.actum.interview.pageobjects.page;
 
-import com.actum.interview.pageobjects.panel.LoginFormPanel;
-import com.actum.interview.pageobjects.panel.MenuPanel;
-import com.actum.interview.pageobjects.panel.ProductPanel;
-import com.actum.interview.pageobjects.panel.SignupFormPanel;
+import com.actum.interview.pageobjects.data.Product;
+import com.actum.interview.pageobjects.panel.ProductsPanel;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
 
 public class DemoblazeHomePage extends AbstractPage {
 
+    private static final int IMPLICIT_WAIT = 5;
+
     private static DemoblazeHomePage instance = null;
+
     public static DemoblazeHomePage getInstance() {
         if (instance == null || instance.isClosed()) {
             instance = new DemoblazeHomePage();
@@ -16,23 +21,23 @@ public class DemoblazeHomePage extends AbstractPage {
     }
 
     private DemoblazeHomePage() {
+        super(new ChromeDriver());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT));
+        driver.manage().window().maximize();
         driver.get("https://www.demoblaze.com");
     }
 
-    public MenuPanel menuPanel() {
-        return new MenuPanel(driver);
+    public DemoblazeHomePage(WebDriver driver) {
+        super(driver);
     }
 
-    public SignupFormPanel signupForm() {
-        return new SignupFormPanel(driver);
+    public ProductsPanel productsPanel() {
+        return new ProductsPanel(driver);
     }
 
-    public LoginFormPanel loginForm() {
-        return new LoginFormPanel(driver);
-    }
-
-    public ProductPanel productPanel() {
-        return new ProductPanel(driver);
+    public ProductDetailPage gotoProductDetail(Product product) {
+        productsPanel().productLink(product.getName()).click();
+        return new ProductDetailPage(driver);
     }
 
 }

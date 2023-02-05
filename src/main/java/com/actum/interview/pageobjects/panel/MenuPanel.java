@@ -21,12 +21,20 @@ public class MenuPanel {
             String LOGOUT_LINK = "logout2";
             String WELCOME_LINK = "nameofuser";
         }
+        interface XPath {
+            String HOME_LINK = "//div[@id='navbarExample']//a[starts-with(text(),'Home')]";
+            String CART_LINK = "//div[@id='navbarExample']//a[text()='Cart']";
+        }
     }
 
     private final WebDriver driver;
 
     public MenuPanel(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public Link homeLink() {
+        return new Link(driver.findElement(By.xpath(Locators.XPath.HOME_LINK)));
     }
 
     public Link signupLink() {
@@ -43,6 +51,10 @@ public class MenuPanel {
 
     public Link welcomeLink() {
         return new Link(driver.findElement(By.id(Locators.Id.WELCOME_LINK)));
+    }
+
+    public Link cartLink() {
+        return new Link(driver.findElement(By.xpath(Locators.XPath.CART_LINK)));
     }
 
     public void waitForLogIn() {

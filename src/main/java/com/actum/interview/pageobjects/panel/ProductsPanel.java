@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public class ProductPanel {
+public class ProductsPanel {
 
     private static final int PAGING_TIMEOUT = 5;
 
@@ -32,12 +32,16 @@ public class ProductPanel {
             String PHONES_CATEGORY_LINK = "//div[@class='list-group']/a[text()='Phones']";
             String LAPTOPS_CATEGORY_LINK = "//div[@class='list-group']/a[text()='Laptops']";
             String MONITORS_CATEGORY_LINK = "//div[@class='list-group']/a[text()='Monitors']";
+
+            static String productLink(String productName) {
+                return String.format("//div[@id='tbodyid']//a[contains(text(),'%s')]", productName);
+            }
         }
     }
 
     private final WebDriver driver;
 
-    public ProductPanel(WebDriver driver) {
+    public ProductsPanel(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -59,6 +63,10 @@ public class ProductPanel {
 
     public Link monitorsLink() {
         return new Link(driver.findElement(By.xpath(Locators.XPath.MONITORS_CATEGORY_LINK)));
+    }
+
+    public Link productLink(String productName) {
+        return new Link(driver.findElement(By.xpath(Locators.XPath.productLink(productName))));
     }
 
     public void showPhonesOnly() {

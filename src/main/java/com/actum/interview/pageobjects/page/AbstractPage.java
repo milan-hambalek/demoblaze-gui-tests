@@ -1,23 +1,47 @@
 package com.actum.interview.pageobjects.page;
 
+import com.actum.interview.pageobjects.panel.LoginFormPanel;
+import com.actum.interview.pageobjects.panel.MenuPanel;
+import com.actum.interview.pageobjects.panel.SignupFormPanel;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 abstract class AbstractPage implements Page {
-    private static final int IMPLICIT_WAIT = 5;
+
     private static final int ALERT_WAIT_TIMEOUT = 5;
 
     protected final WebDriver driver;
     private boolean isClosed = false;
 
-    protected AbstractPage() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT));
-        driver.manage().window().maximize();
+    protected AbstractPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public MenuPanel menuPanel() {
+        return new MenuPanel(driver);
+    }
+
+    public SignupFormPanel signupForm() {
+        return new SignupFormPanel(driver);
+    }
+
+    public LoginFormPanel loginForm() {
+        return new LoginFormPanel(driver);
+    }
+
+    public DemoblazeHomePage gotoHomepage() {
+        menuPanel().homeLink().click();
+        return new DemoblazeHomePage(driver);
+    }
+
+    public CartPage gotoCart() {
+        menuPanel().cartLink().click();
+        CartPage cartPage = new CartPage(driver);
+        cartPage.cartPanel().waitForLoad();
+        return cartPage;
     }
 
     public String acceptAlert() {
