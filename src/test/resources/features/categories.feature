@@ -1,5 +1,5 @@
 @Categories
-Feature: Browse product categories
+Feature: Product categories
 
 Background:
     Given Unsigned user is at "https://www.demoblaze.com" site

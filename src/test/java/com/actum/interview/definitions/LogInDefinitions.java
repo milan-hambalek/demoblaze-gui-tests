@@ -2,25 +2,16 @@ package com.actum.interview.definitions;
 
 import com.actum.interview.pageobjects.page.DemoblazeHomePage;
 import io.cucumber.java.After;
-import io.cucumber.java.en.And;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 
 import static org.testng.Assert.*;
 
 public class LogInDefinitions extends AbstractDefinitions {
 
-    @And("Opens up \"Log In\" form")
-    public void openLogInForm() {
+    @Before("@Login")
+    public void setUp() {
         homePage = DemoblazeHomePage.getInstance();
-        homePage.menuPanel().loginLink().click();
-    }
-
-    @When("User logs in with username as {string} and password as {string}")
-    public void logIn(String username, String password) {
-        homePage.loginForm().usernameInput().type(username);
-        homePage.loginForm().passwordInput().type(password);
-        homePage.loginForm().loginButton().click();
     }
 
     @Then("User {string} should log in successfully")

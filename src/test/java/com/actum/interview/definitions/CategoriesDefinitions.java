@@ -26,7 +26,7 @@ public class CategoriesDefinitions extends AbstractDefinitions {
 
     @When("User browses through products without specifying category")
     public void browseAllProducts() {
-        displayedProducts = homePage.productPanel().collectProducts();
+        displayedProducts = homePage.productsPanel().collectProducts();
     }
 
     @Then("User should see all available products in correct order")
@@ -38,8 +38,8 @@ public class CategoriesDefinitions extends AbstractDefinitions {
 
     @When("User chooses \"Phones\" category and browses phones")
     public void browsePhones() {
-        homePage.productPanel().showPhonesOnly();
-        displayedProducts = homePage.productPanel().parseProducts();
+        homePage.productsPanel().showPhonesOnly();
+        displayedProducts = homePage.productsPanel().parseProducts();
     }
 
     @Then("User should see all available phones in correct order")
@@ -49,8 +49,8 @@ public class CategoriesDefinitions extends AbstractDefinitions {
 
     @When("User chooses \"Laptops\" category and browses laptops")
     public void browseLaptops() {
-        homePage.productPanel().showLaptopsOnly();
-        displayedProducts = homePage.productPanel().parseProducts();
+        homePage.productsPanel().showLaptopsOnly();
+        displayedProducts = homePage.productsPanel().parseProducts();
     }
 
     @Then("User should see all available laptops in correct order")
@@ -60,8 +60,8 @@ public class CategoriesDefinitions extends AbstractDefinitions {
 
     @When("User chooses \"Monitors\" category and browses monitors")
     public void browseMonitors() {
-        homePage.productPanel().showMonitorsOnly();
-        displayedProducts = homePage.productPanel().parseProducts();
+        homePage.productsPanel().showMonitorsOnly();
+        displayedProducts = homePage.productsPanel().parseProducts();
     }
 
     @Then("User should see all available monitors in correct order")
